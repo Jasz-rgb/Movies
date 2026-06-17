@@ -1,8 +1,10 @@
+import Topbar from "../components/TempTopbar";
 
-const HomePage = () => {
-  return (
-    <div>HomePage</div>
-  )
-}
-
-export default HomePage
+const HomePage=()=>{
+    return (
+        <div>
+            <Topbar/>
+        </div>
+    )
+};
+export default HomePage;
