@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 // import { useEffect, useState } from 'react';
 import HomePage from './pages/HomePage';
 import MainLayout from './layout/MainLayout';
-import Nav from './pages/Nav';
+import MovieDetailsPage from './pages/movie/MovieDetailsPage';
 // import LoaderScreen from './components/skeletons/Loader';
 
 function App() {
@@ -23,8 +23,8 @@ function App() {
   return (
     <Routes>
       <Route element={<MainLayout/>}>
-          <Route path='/' element={<HomePage/>}/>
-          <Route path='/nav' element={<Nav/>}/>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/movie/:id" element={<MovieDetailsPage />} />
         </Route>
     </Routes>
   );

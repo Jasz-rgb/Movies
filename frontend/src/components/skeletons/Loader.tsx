@@ -1,11 +1,11 @@
-// src/components/Loader.tsx
+import { Loader2 } from "lucide-react";
 
-import { Loader } from "lucide-react";
-
-export default function LoaderScreen() {
+const LoaderScreen = () => {
   return (
     <div className="h-screen flex items-center justify-center bg-black">
-      <Loader className="w-10 h-10 animate-spin text-white" />
+      <Loader2 className="w-12 h-12 animate-spin text-red-500" />
     </div>
   );
-}
+};
+
+export default LoaderScreen;
