@@ -1,3 +1,4 @@
+import { useGrid } from "@/context/GridProvider";
 import MovieCard from "./MovieCard";
 
 interface Movie {
@@ -11,8 +12,9 @@ interface Props {
 }
 
 const MovieGrid = ({ movies }: Props) => {
+  const { columns } = useGrid();
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+    <div className="grid gap-4" style={{gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,}}>
       {movies.map((movie) => (
         <MovieCard
           key={movie.tmdb_id}

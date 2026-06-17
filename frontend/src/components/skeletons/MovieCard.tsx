@@ -10,17 +10,26 @@ const MovieCard = ({ id, title, posterUrl }: MovieCardProps) => {
   return (
     <Link
       to={`/movie/${id}`}
-      className="bg-zinc-900 rounded-lg overflow-hidden hover:scale-105 transition"
+      className="group"
     >
-      <img
-        src={posterUrl}
-        alt={title}
-        className="w-full h-72 object-cover"
-      />
-
-      <div className="p-3">
-        <h3 className="font-medium truncate">{title}</h3>
+      <div className="overflow-hidden rounded-lg bg-zinc-900">
+        <img
+          src={posterUrl}
+          alt={title}
+          className="
+            w-full
+            aspect-2/3
+            object-cover
+            transition-transform
+            duration-300
+            group-hover:scale-105
+          "
+        />
       </div>
+
+      <h3 className="mt-2 text-sm truncate">
+        {title}
+      </h3>
     </Link>
   );
 };
