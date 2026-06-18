@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchMovieDetails,fetchRecommendations } from "@/services/api";
+import { fetchMovieDetails,fetchRecommendations,fetchTrailer } from "@/services/api";
 import RecommendationSection from "@/components/skeletons/RecommendationSection";
 interface Genre {
   id: number;
@@ -36,30 +36,22 @@ const MovieDetailsPage = () => {
 
   const [movie, setMovie] = useState<Movie | null>(null);
   const [loading, setLoading] = useState(true);
-
-  const [recommendations, setRecommendations] =
-    useState<RecommendationsResponse | null>(null);
-
+  const [recommendations, setRecommendations] =useState<RecommendationsResponse | null>(null);
+  const [trailerUrl, setTrailerUrl] = useState<string | null>(null);
   useEffect(() => {
     if (!id) return;
 
     const loadMovie = async () => {
       try {
         const data = await fetchMovieDetails(id);
-
         setMovie(data);
 
         const recs = await fetchRecommendations(data.title);
-        console.log("RECS FULL:", recs);
-        console.log(
-          "TFIDF:",
-          recs?.tfidf_recommendations?.length
-        );
-        console.log(
-          "GENRE:",
-          recs?.genre_recommendations?.length
-        );
         setRecommendations(recs);
+
+        const trailer = await fetchTrailer(id);
+        setTrailerUrl(trailer.url);
+
       } catch (err) {
         console.error(err);
       } finally {
@@ -85,7 +77,6 @@ const MovieDetailsPage = () => {
       </div>
     );
   }
-
   return (
     <div className="p-6 text-white">
       <h1 className="text-3xl font-bold mb-6">
@@ -134,16 +125,16 @@ const MovieDetailsPage = () => {
             {movie.overview || "No overview available."}
           </p>
           <div className="flex gap-3 mt-6">
-            <a
-              href={`https://www.youtube.com/results?search_query=${encodeURIComponent(
-                movie.title + " official trailer"
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2 bg-red-600 rounded-lg hover:bg-red-700"
-            >
-              ▶ Watch Trailer
-            </a>
+            {trailerUrl && (
+              <a
+                href={trailerUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 bg-red-600 rounded-lg hover:bg-red-700"
+              >
+                ▶ Watch Trailer
+              </a>
+            )}
           </div>
         </div>
       </div>

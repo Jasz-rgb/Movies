@@ -310,3 +310,14 @@ async def search_bundle(query: str = Query(..., min_length=1),tfidf_top_n: int =
         cards = await tmdb_cards_from_results(discover.get("results", []), limit=genre_limit)
         genre_recs = [c for c in cards if c.tmdb_id != details.tmdb_id] 
     return SearchBundleResponse(query=query,movie_details=details,tfidf_recommendations=tfidf_items,genre_recommendations=genre_recs,)
+
+@app.get("/movie/{movie_id}/trailer")
+async def get_trailer(movie_id: int):
+    print("TRAILER REQUEST:", movie_id)
+    data = await tmdb_get(f"/movie/{movie_id}/videos", {})
+    print(data)
+    for video in data.get("results", []):
+        if (video.get("site") == "YouTube" and video.get("type") == "Trailer"):
+            return {"youtube_key": video["key"],"url": f"https://www.youtube.com/watch?v={video['key']}"}
+    return {"youtube_key": None}
+print("TRAILER ROUTE LOADED")
