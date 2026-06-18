@@ -6,7 +6,7 @@ interface Movie {
 }
 interface Props {
   title: string;
-  movies: Movie[];   //check
+  movies: Movie[];
 }
 
 
@@ -14,17 +14,17 @@ const RecommendationSection = ({
   title,
   movies,
 }: Props) => {
-  if (!movies?.length) return null;
 
-  return (
-    <div className="mt-10">
-      <h2 className="text-2xl font-bold mb-4">
-        {title}
-      </h2>
+return (
+  <div className="mt-10">
+    <h2 className="text-2xl font-bold mb-4">
+      {title} ({movies.length})
+    </h2>
 
-      <MovieGrid movies={movies} />
-    </div>
-  );
+    <MovieGrid movies={movies} />
+  </div>
+);
+
 };
 
 export default RecommendationSection;

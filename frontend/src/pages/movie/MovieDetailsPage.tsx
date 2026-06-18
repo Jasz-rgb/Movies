@@ -50,7 +50,15 @@ const MovieDetailsPage = () => {
         setMovie(data);
 
         const recs = await fetchRecommendations(data.title);
-
+        console.log("RECS FULL:", recs);
+        console.log(
+          "TFIDF:",
+          recs?.tfidf_recommendations?.length
+        );
+        console.log(
+          "GENRE:",
+          recs?.genre_recommendations?.length
+        );
         setRecommendations(recs);
       } catch (err) {
         console.error(err);
@@ -87,7 +95,7 @@ const MovieDetailsPage = () => {
       {/* Details Section */}
       <div className="grid md:grid-cols-[300px_1fr] gap-8">
         {/* Poster Card */}
-        <div className="bg-zinc-900 rounded-xl p-4 h-fit">
+        <div className="rounded-xl p-4 h-fit">
           <img
             src={movie.poster_url}
             alt={movie.title}
@@ -158,7 +166,7 @@ const MovieDetailsPage = () => {
       {/* Recommendations */}
       <div className="mt-12">
         <RecommendationSection
-          title="🔎 Similar Movies"
+          title="🔎 Similar Movies (TF-IDF)"
           movies={
             recommendations?.tfidf_recommendations?.map(
               (item: TfidfRecommendation) => ({
@@ -171,7 +179,7 @@ const MovieDetailsPage = () => {
         />
 
         <RecommendationSection
-          title="🎭 More Like This"
+          title="🎭 More Like This (Genre)"
           movies={
             recommendations?.genre_recommendations || []
           }

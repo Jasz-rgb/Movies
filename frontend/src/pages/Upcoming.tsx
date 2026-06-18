@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import MovieGrid from "@/components/skeletons/MovieGrid";
 
-const API_BASE = "https://movie-rec-466x.onrender.com";
-
+const API_BASE = import.meta.env.VITE_API_URL;
 interface Movie {
   tmdb_id: number;
   title: string;

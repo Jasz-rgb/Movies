@@ -1,4 +1,4 @@
-const API_BASE = "https://movie-rec-466x.onrender.com";
+const API_BASE = import.meta.env.VITE_API_URL;
 
 export async function fetchTrendingMovies() {
   const res = await fetch(
