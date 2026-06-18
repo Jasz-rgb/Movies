@@ -190,6 +190,9 @@ async def attach_tmdb_card_by_title(title: str) -> Optional[TMDBMovieCard]:
         return TMDBMovieCard(tmdb_id=int(m["id"]),title=m.get("title") or title,poster_url=make_img_url(m.get("poster_path")),release_date=m.get("release_date"),vote_average=m.get("vote_average"),)
     except Exception:
         return None
+    
+@app.get("/")
+def root(): return {"message": "Movie Recommendation API is running"}
 
 @app.on_event("startup")
 def load_pickles():
