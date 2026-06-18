@@ -10,7 +10,7 @@ const LeftSidebar = () => {
   return (
     <div className="h-full p-2">
       {/* Navigation */}
-      <div className="rounded-lg bg-zinc-900 h-full p-4">
+      <div className="rounded-lg bg-zinc-900 h-full p-4 pt-20">
         <div className="space-y-2">
           <Link
             to="/"
@@ -19,8 +19,8 @@ const LeftSidebar = () => {
               "w-full justify-start text-white hover:bg-zinc-800"
             )}
           >
-            <HomeIcon className="mr-2 size-5 shrink-0" />
-            <span>Home</span>
+            <HomeIcon className="mr-3 size-6 shrink-0" />
+            <span className="text-base">Home</span>
           </Link>
 
           <Link
@@ -30,8 +30,8 @@ const LeftSidebar = () => {
               "w-full justify-start text-white hover:bg-zinc-800"
             )}
           >
-            <Film className="mr-2 size-5 shrink-0" />
-            <span>Popular</span>
+            <Film className="mr-3 size-6 shrink-0" />
+            <span className='text-base'>Popular</span>
           </Link>
 
           <Link
@@ -41,8 +41,8 @@ const LeftSidebar = () => {
               "w-full justify-start text-white hover:bg-zinc-800"
             )}
           >
-            <Star className="mr-2 size-5 shrink-0" />
-            <span>Top Rated</span>
+            <Star className="mr-3 size-6 shrink-0" />
+            <span className='text-base'>Top Rated</span>
           </Link>
 
           <Link
@@ -52,12 +52,12 @@ const LeftSidebar = () => {
               "w-full justify-start text-white hover:bg-zinc-800"
             )}
           >
-            <Clock3 className="mr-2 size-5 shrink-0" />
-            <span>Upcoming</span>
+            <Clock3 className="mr-3 size-6 shrink-0" />
+            <span className='text-base'>Upcoming</span>
           </Link>
         </div>
-        <div className="rounded-lg bg-zinc-900 p-4 mt-2">
-          <h3 className="text-sm font-semibold mb-3">
+        <div className="rounded-lg bg-zinc-900 p-4 mt-2 pt-10">
+          <h3 className="text-bold font-semibold mb-3">
             Cards Per Row
           </h3>
 
@@ -71,7 +71,7 @@ const LeftSidebar = () => {
             }
           />
 
-          <p className="text-sm text-zinc-400 mt-2">
+          <p className="text-bold text-zinc-400 mt-2">
             {columns} cards
           </p>
         </div>
