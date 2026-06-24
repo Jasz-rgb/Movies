@@ -35,11 +35,15 @@ interface RecommendationsResponse {
 
 const MovieDetailsPage = () => {
   const { id } = useParams();
-
   const [movie, setMovie] = useState<Movie | null>(null);
   const [loading, setLoading] = useState(true);
   const [recommendations, setRecommendations] =useState<RecommendationsResponse | null>(null);
   const [trailerUrl, setTrailerUrl] = useState<string | null>(null);
+  const tfidifMoviescount=recommendations?.tfidf_recommendations?.filter((item)=>item.tmdb).map((item)=>({
+    tmdb_id: item.tmdb.tmdb_id,
+    title:item.tmdb.title,
+    poster_url: item.tmdb.poster_url,
+    }))||[];
   useEffect(() => {
     if (!id) return;
     setLoading(true);   //calls when id changes for movie cards
@@ -151,24 +155,12 @@ const MovieDetailsPage = () => {
 
       {/* Recommendations */}
       <div className="mt-12">
-        <RecommendationSection
-          title="🔎 Similar Movies (TF-IDF)"
-          movies={
-            recommendations?.tfidf_recommendations?.map(
-              (item: TfidfRecommendation) => ({
-                tmdb_id: item.tmdb.tmdb_id,
-                title: item.tmdb.title,
-                poster_url: item.tmdb.poster_url,
-              })
-            ) || []
-          }
-        />
+        {tfidifMoviescount.length>0 && (<RecommendationSection title="🔎 Similar Movies (TF-IDF)"
+          movies={recommendations?.tfidf_recommendations?.map((item: TfidfRecommendation) => ({tmdb_id: item.tmdb.tmdb_id,title: item.tmdb.title,poster_url: item.tmdb.poster_url,})) || []}
+        />)}
 
-        <RecommendationSection
-          title="🎭 More Like This (Genre)"
-          movies={
-            recommendations?.genre_recommendations || []
-          }
+        <RecommendationSection title="🎭 More Like This (Genre)"
+          movies={recommendations?.genre_recommendations || []}
         />
       </div>
     </div>
