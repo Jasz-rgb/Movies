@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import MovieGrid from "@/components/skeletons/MovieGrid";
+import Loader from "@/components/skeletons/Loader";
 
 const API_BASE = import.meta.env.VITE_API_URL;
-
 interface Movie {
   tmdb_id: number;
   title: string;
@@ -11,20 +11,26 @@ interface Movie {
 
 const PopularPage = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const loadMovies = async () => {
-      const res = await fetch(
-        `${API_BASE}/home?category=popular&limit=24`
-      );
-
-      const data = await res.json();
-
-      setMovies(data);
+      try {
+        const res = await fetch(
+          `${API_BASE}/home?category=popular&limit=24`
+        );
+        const data = await res.json();
+        setMovies(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
     };
-
     loadMovies();
   }, []);
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="p-6">

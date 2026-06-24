@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchMovieDetails,fetchRecommendations,fetchTrailer } from "@/services/api";
 import RecommendationSection from "@/components/skeletons/RecommendationSection";
+import Loader from "@/components/skeletons/Loader";
+
 interface Genre {
   id: number;
   name: string;
@@ -40,18 +42,15 @@ const MovieDetailsPage = () => {
   const [trailerUrl, setTrailerUrl] = useState<string | null>(null);
   useEffect(() => {
     if (!id) return;
-
+    setLoading(true);   //calls when id changes for movie cards
     const loadMovie = async () => {
       try {
         const data = await fetchMovieDetails(id);
         setMovie(data);
-
         const recs = await fetchRecommendations(data.title);
         setRecommendations(recs);
-
         const trailer = await fetchTrailer(id);
         setTrailerUrl(trailer.url);
-
       } catch (err) {
         console.error(err);
       } finally {
@@ -63,11 +62,7 @@ const MovieDetailsPage = () => {
   }, [id]);
 
   if (loading) {
-    return (
-      <div className="p-6 text-white">
-        Loading...
-      </div>
-    );
+    return <Loader />;
   }
 
   if (!movie) {

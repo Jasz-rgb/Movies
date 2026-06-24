@@ -8,8 +8,6 @@ interface Props {
   title: string;
   movies: Movie[];
 }
-
-
 const RecommendationSection = ({
   title,
   movies,
